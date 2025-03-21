@@ -120,7 +120,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         
         <div className="flex flex-row w-full overflow-hidden flex-1">
           <main className={cn(
-            "transition-all duration-300 ease-in-out p-6 overflow-auto",
+            "transition-all duration-300 ease-in-out p-6 overflow-auto flex-shrink-0",
             isRightSidebarOpen ? "w-3/5" : "w-4/5"
           )}>
             {children}
@@ -130,7 +130,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             open={isRightSidebarOpen} 
             onOpenChange={setIsRightSidebarOpen} 
             className={cn(
-              "border-l bg-accent/50 transition-all duration-300 ease-in-out",
+              "border-l bg-accent/50 transition-all duration-300 ease-in-out flex-shrink-0",
               isRightSidebarOpen ? "w-1/5" : "w-0"
             )}
           >
@@ -144,7 +144,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                   {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
                 </Button>
               </CollapsibleTrigger>
-              <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto">
+              <CollapsibleContent 
+                className="h-full data-[state=closed]:hidden overflow-auto"
+                forceMount={true}
+              >
                 <div className="px-4 py-6">
                   <UserProgress />
                 </div>
