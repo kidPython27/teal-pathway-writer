@@ -25,7 +25,7 @@ import {
   ChevronLeft
 } from "lucide-react";
 import { UserProgress } from "@/components/UserProgress";
-import { ProgressIndicator } from "@/components/ProgressIndicator";
+import { ProfileCompletion } from "@/components/ProfileCompletion";
 import { cn } from "@/lib/utils";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
@@ -49,7 +49,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   
   return (
     <div className="min-h-screen flex w-full">
-      <Sidebar className="border-r w-1/5">
+      <Sidebar className="border-r w-1/5 min-w-[200px]">
         <SidebarHeader className="px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
@@ -60,7 +60,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <SidebarTrigger className="md:hidden" />
         </SidebarHeader>
         <SidebarContent className="px-3 py-3">
-          <ProgressIndicator />
+          <div className="flex justify-center py-4">
+            <ProfileCompletion />
+          </div>
           <div className="mt-6">
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -98,7 +100,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </SidebarFooter>
       </Sidebar>
 
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <div className="px-6 py-4 border-b flex justify-between items-center">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="hidden md:flex" />
@@ -116,9 +118,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
         </div>
         
-        <div className="flex flex-row w-full">
+        <div className="flex flex-row w-full overflow-hidden flex-1">
           <main className={cn(
-            "transition-all duration-300 ease-in-out p-6",
+            "transition-all duration-300 ease-in-out p-6 overflow-auto",
             isRightSidebarOpen ? "w-3/5" : "w-4/5"
           )}>
             {children}
@@ -128,7 +130,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             open={isRightSidebarOpen} 
             onOpenChange={setIsRightSidebarOpen} 
             className={cn(
-              "border-l bg-accent/50 overflow-y-auto transition-all duration-300 ease-in-out",
+              "border-l bg-accent/50 transition-all duration-300 ease-in-out",
               isRightSidebarOpen ? "w-1/5" : "w-0"
             )}
           >
@@ -142,8 +144,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                   {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
                 </Button>
               </CollapsibleTrigger>
-              <CollapsibleContent className="px-4 py-6 h-full data-[state=closed]:hidden">
-                <UserProgress />
+              <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto">
+                <div className="px-4 py-6">
+                  <UserProgress />
+                </div>
               </CollapsibleContent>
             </div>
           </Collapsible>
