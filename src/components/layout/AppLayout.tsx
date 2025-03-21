@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { 
   Sidebar, 
@@ -20,11 +20,14 @@ import {
   DollarSign, 
   HelpCircle, 
   Settings, 
-  LogOut 
+  LogOut,
+  ChevronRight,
+  ChevronLeft
 } from "lucide-react";
 import { UserProgress } from "@/components/UserProgress";
 import { ProgressIndicator } from "@/components/ProgressIndicator";
 import { cn } from "@/lib/utils";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -33,6 +36,7 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(true);
 
   const menuItems = [
     { title: "Dashboard", icon: User, url: "/" },
@@ -45,8 +49,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   
   return (
     <div className="min-h-screen flex w-full">
-      <Sidebar className="border-r">
-        <SidebarHeader className="px-6 py-5 flex items-center justify-between">
+      <Sidebar className="border-r w-1/5">
+        <SidebarHeader className="px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
               <span className="text-white font-semibold">MA</span>
@@ -55,9 +59,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
           <SidebarTrigger className="md:hidden" />
         </SidebarHeader>
-        <SidebarContent className="px-4 py-4">
+        <SidebarContent className="px-3 py-3">
           <ProgressIndicator />
-          <div className="mt-8">
+          <div className="mt-6">
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
@@ -76,7 +80,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             </SidebarMenu>
           </div>
         </SidebarContent>
-        <SidebarFooter className="px-4 py-4 border-t">
+        <SidebarFooter className="px-3 py-3 border-t">
           <div className="flex flex-col gap-2">
             <SidebarMenuButton className="w-full flex items-center gap-2 py-2 px-3 rounded-md hover:bg-accent">
               <HelpCircle size={18} />
@@ -112,14 +116,37 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
         </div>
         
-        <div className="flex flex-col md:flex-row w-full">
-          <main className="flex-1 px-6 py-6 transition-all duration-300 ease-in-out">
+        <div className="flex flex-row w-full">
+          <main className={cn(
+            "transition-all duration-300 ease-in-out p-6",
+            isRightSidebarOpen ? "w-3/5" : "w-4/5"
+          )}>
             {children}
           </main>
           
-          <aside className="w-full md:w-80 lg:w-96 border-l bg-accent/50 px-4 py-6 overflow-y-auto">
-            <UserProgress />
-          </aside>
+          <Collapsible 
+            open={isRightSidebarOpen} 
+            onOpenChange={setIsRightSidebarOpen} 
+            className={cn(
+              "border-l bg-accent/50 overflow-y-auto transition-all duration-300 ease-in-out",
+              isRightSidebarOpen ? "w-1/5" : "w-0"
+            )}
+          >
+            <div className="relative h-full">
+              <CollapsibleTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute -left-4 top-6 z-10 h-8 w-8 rounded-full border bg-background shadow-md"
+                >
+                  {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="px-4 py-6 h-full data-[state=closed]:hidden">
+                <UserProgress />
+              </CollapsibleContent>
+            </div>
+          </Collapsible>
         </div>
       </div>
     </div>
