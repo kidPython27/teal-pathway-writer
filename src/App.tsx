@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SidebarProvider } from "./components/ui/sidebar";
 
 // Pages
+import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Essays from "./pages/Essays";
@@ -25,7 +26,8 @@ const App = () => (
       <SidebarProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/essays" element={<Essays />} />
             <Route path="/sop" element={<SOP />} />
