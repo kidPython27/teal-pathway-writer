@@ -144,7 +144,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                   {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
                 </Button>
               </CollapsibleTrigger>
-              <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto">
+              <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto" forceMount>
                 <div className="px-4 py-6">
                   <UserProgress />
                 </div>
