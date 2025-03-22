@@ -49,7 +49,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   
   return (
     <div className="min-h-screen flex w-full">
-      <Sidebar className="border-r w-1/5 min-w-[200px]">
+      <Sidebar className="border-r w-1/5">
         <SidebarHeader className="px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
@@ -120,17 +120,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         
         <div className="flex flex-row w-full overflow-hidden flex-1">
           <main className={cn(
-            "transition-all duration-300 ease-in-out p-6 overflow-auto",
-            isRightSidebarOpen ? "w-3/5" : "w-4/5"
+            "transition-all duration-300 ease-in-out p-6 overflow-auto w-full",
+            isRightSidebarOpen ? "w-3/5" : "flex-1"
           )}>
             {children}
           </main>
-          
-          <div className={cn(
-            "transition-all duration-300 ease-in-out",
-            isRightSidebarOpen ? "w-1/5" : "w-0"
-          )}>
-          </div>
         </div>
       </div>
       

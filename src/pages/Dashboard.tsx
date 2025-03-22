@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <AppLayout>
-      <div className="space-y-6 max-w-5xl">
+      <div className="space-y-6 w-full">
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <h2>Application Overview</h2>
