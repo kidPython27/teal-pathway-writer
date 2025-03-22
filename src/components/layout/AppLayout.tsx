@@ -130,31 +130,32 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             "transition-all duration-300 ease-in-out",
             isRightSidebarOpen ? "w-1/5" : "w-0"
           )}>
-            <Collapsible 
-              open={isRightSidebarOpen} 
-              onOpenChange={setIsRightSidebarOpen} 
-              className="border-l bg-accent/50 h-full"
-            >
-              <div className="relative h-full">
-                <CollapsibleTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute -left-4 top-6 z-10 h-8 w-8 rounded-full border bg-background shadow-md"
-                  >
-                    {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto" forceMount>
-                  <div className="px-4 py-6">
-                    <UserProgress />
-                  </div>
-                </CollapsibleContent>
-              </div>
-            </Collapsible>
           </div>
         </div>
       </div>
+      
+      <Collapsible 
+        open={isRightSidebarOpen} 
+        onOpenChange={setIsRightSidebarOpen} 
+        className="border-l bg-accent/50 h-full"
+      >
+        <div className="relative h-full">
+          <CollapsibleTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute -left-4 top-6 z-10 h-8 w-8 rounded-full border bg-background shadow-md"
+            >
+              {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto" forceMount>
+            <div className="px-4 py-6">
+              <UserProgress />
+            </div>
+          </CollapsibleContent>
+        </div>
+      </Collapsible>
     </div>
   );
 };
