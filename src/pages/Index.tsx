@@ -48,7 +48,7 @@ const Index = () => {
           </div>
           
           <Button asChild size="lg" className="w-full">
-            <Link to="/dashboard" className="flex items-center justify-center gap-2">
+            <Link to="/" className="flex items-center justify-center gap-2">
               Get Started <ArrowRight className="h-4 w-4 ml-1" />
             </Link>
           </Button>

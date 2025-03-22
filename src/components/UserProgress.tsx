@@ -52,7 +52,7 @@ export const UserProgress: React.FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="glass-card p-4">
-        <h2 className="mb-2">Profile Completion</h2>
+        <h2 className="text-sm font-medium mb-2">Profile Completion</h2>
         <Progress value={67} className="h-2 mb-2" />
         <div className="flex justify-between text-sm">
           <span>67% Complete</span>
@@ -78,8 +78,8 @@ export const UserProgress: React.FC = () => {
 
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2>Suggested Colleges</h2>
-          <Button variant="ghost" size="sm" className="text-primary text-sm font-medium">
+          <h2 className="text-sm font-medium">Suggested Colleges</h2>
+          <Button variant="ghost" size="sm" className="text-primary text-xs h-6 px-2">
             See All
           </Button>
         </div>
@@ -88,42 +88,42 @@ export const UserProgress: React.FC = () => {
           {colleges.map((college, index) => (
             <div 
               key={index} 
-              className="glass-card p-4 border hover:shadow-md transition-shadow duration-200"
+              className="glass-card p-3 border hover:shadow-md transition-shadow duration-200"
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-medium">{college.name}</h3>
-                    <Badge variant="outline" className="text-xs font-normal">
+                  <div className="flex items-center gap-1 mb-1">
+                    <h3 className="font-medium text-sm">{college.name}</h3>
+                    <Badge variant="outline" className="text-xs font-normal h-5 px-1">
                       {college.ranking}
                     </Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground">{college.program}</p>
+                  <p className="text-xs text-muted-foreground">{college.program}</p>
                 </div>
                 <Button 
                   variant={college.shortlisted ? "default" : "outline"} 
                   size="sm"
-                  className={college.shortlisted ? "h-8 gap-1" : "h-8"}
+                  className={college.shortlisted ? "h-6 text-xs px-2 gap-1" : "h-6 text-xs px-2"}
                 >
-                  {college.shortlisted && <Check size={14} />}
+                  {college.shortlisted && <Check size={12} />}
                   {college.shortlisted ? "Shortlisted" : "Shortlist"}
                 </Button>
               </div>
               
-              <div className="mt-3 space-y-1.5">
-                <div className="flex items-center text-sm gap-1">
-                  <MapPin size={14} className="text-muted-foreground" />
+              <div className="mt-2 space-y-1">
+                <div className="flex items-center text-xs gap-1">
+                  <MapPin size={12} className="text-muted-foreground" />
                   <span>{college.location}</span>
                 </div>
-                <div className="flex items-center text-sm gap-1">
-                  <Star size={14} className="text-muted-foreground" />
+                <div className="flex items-center text-xs gap-1">
+                  <Star size={12} className="text-muted-foreground" />
                   <span>{college.testScores}</span>
                 </div>
               </div>
               
-              <div className="mt-3 text-right">
-                <Button variant="ghost" size="sm" className="h-7 text-primary text-sm gap-1">
-                  View Details <ArrowUpRight size={14} />
+              <div className="mt-2 text-right">
+                <Button variant="ghost" size="sm" className="h-6 text-primary text-xs gap-1 px-2">
+                  Details <ArrowUpRight size={12} />
                 </Button>
               </div>
             </div>
