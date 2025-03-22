@@ -137,7 +137,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <Collapsible 
         open={isRightSidebarOpen} 
         onOpenChange={setIsRightSidebarOpen} 
-        className="border-l bg-accent/50 h-full"
+        className="border-l bg-accent/50 h-full w-1/5"
       >
         <div className="relative h-full">
           <CollapsibleTrigger asChild>
