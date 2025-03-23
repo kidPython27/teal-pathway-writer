@@ -100,7 +100,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </SidebarFooter>
       </Sidebar>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className={cn(
+        "flex-1 flex flex-col overflow-hidden",
+        isRightSidebarOpen ? "w-4/5" : "w-4/5"
+      )}>
         <div className="px-6 py-4 border-b flex justify-between items-center">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="hidden md:flex" />
@@ -118,11 +121,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
         </div>
         
-        <div className="flex flex-row w-full overflow-hidden flex-1">
-          <main className={cn(
-            "transition-all duration-300 ease-in-out p-6 overflow-auto",
-            isRightSidebarOpen ? "w-full" : "w-[80%]"
-          )}>
+        <div className={cn(
+          "flex flex-row overflow-hidden flex-1",
+          isRightSidebarOpen ? "w-full" : "w-full"
+        )}>
+          <main className="w-full transition-all duration-300 ease-in-out p-6 overflow-auto">
             {children}
           </main>
         </div>
@@ -131,7 +134,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <Collapsible 
         open={isRightSidebarOpen} 
         onOpenChange={setIsRightSidebarOpen} 
-        className="border-l bg-accent/50 h-full w-1/5"
+        className={cn(
+          "border-l bg-accent/50 h-full",
+          isRightSidebarOpen ? "w-1/5" : "w-0"
+        )}
       >
         <div className="relative h-full">
           <CollapsibleTrigger asChild>
