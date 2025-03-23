@@ -119,7 +119,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </div>
         
         <div className="flex flex-row w-full overflow-hidden flex-1">
-          <main className="w-full transition-all duration-300 ease-in-out p-6 overflow-auto">
+          <main className={cn(
+            "transition-all duration-300 ease-in-out p-6 overflow-auto",
+            isRightSidebarOpen ? "w-full" : "w-[80%]"
+          )}>
             {children}
           </main>
         </div>
