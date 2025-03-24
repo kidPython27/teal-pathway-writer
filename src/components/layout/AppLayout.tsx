@@ -49,7 +49,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   
   return (
     <div className="min-h-screen flex w-full">
-      <Sidebar className="border-r w-1/5">
+      {/* Left sidebar - responsive with SidebarTrigger */}
+      <Sidebar className="border-r">
         <SidebarHeader className="px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
@@ -100,10 +101,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </SidebarFooter>
       </Sidebar>
 
-      <div className={cn(
-        "flex-1 flex flex-col overflow-hidden",
-        isRightSidebarOpen ? "w-4/5" : "w-4/5"
-      )}>
+      {/* Main content container */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Top header */}
         <div className="px-6 py-4 border-b flex justify-between items-center">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="hidden md:flex" />
@@ -112,50 +112,51 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="hidden sm:flex">
               <HelpCircle size={16} className="mr-1" /> Help
             </Button>
-            <Button>
+            <Button className="text-xs sm:text-sm">
               Download Package
             </Button>
           </div>
         </div>
         
-        <div className={cn(
-          "flex flex-row overflow-hidden flex-1",
-          isRightSidebarOpen ? "w-full" : "w-full"
-        )}>
-          <main className="w-full transition-all duration-300 ease-in-out p-6 overflow-auto">
+        {/* Main content and right sidebar layout */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Main content area - always takes full width of its container */}
+          <main className="flex-1 p-6 overflow-auto">
             {children}
           </main>
+          
+          {/* Right sidebar - responsive collapsible */}
+          <Collapsible 
+            open={isRightSidebarOpen} 
+            onOpenChange={setIsRightSidebarOpen}
+            className={cn(
+              "border-l bg-accent/50 h-full",
+              isRightSidebarOpen ? "w-full md:w-1/3 lg:w-1/4 xl:w-1/5" : "w-0",
+              "transition-all duration-300 ease-in-out"
+            )}
+          >
+            <div className="relative h-full">
+              <CollapsibleTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute -left-4 top-6 z-10 h-8 w-8 rounded-full border bg-background shadow-md"
+                >
+                  {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto" forceMount>
+                <div className="px-4 py-6">
+                  <UserProgress />
+                </div>
+              </CollapsibleContent>
+            </div>
+          </Collapsible>
         </div>
       </div>
-      
-      <Collapsible 
-        open={isRightSidebarOpen} 
-        onOpenChange={setIsRightSidebarOpen} 
-        className={cn(
-          "border-l bg-accent/50 h-full",
-          isRightSidebarOpen ? "w-1/5" : "w-0"
-        )}
-      >
-        <div className="relative h-full">
-          <CollapsibleTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute -left-4 top-6 z-10 h-8 w-8 rounded-full border bg-background shadow-md"
-            >
-              {isRightSidebarOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-            </Button>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="h-full data-[state=closed]:hidden overflow-auto" forceMount>
-            <div className="px-4 py-6">
-              <UserProgress />
-            </div>
-          </CollapsibleContent>
-        </div>
-      </Collapsible>
     </div>
   );
 };
